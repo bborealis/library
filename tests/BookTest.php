@@ -161,6 +161,36 @@
             //Assert
             $this->assertEquals([$test_author, $test_author2], $result);
         }
+
+        // function testGetCopies()
+        // {
+        //     //Arrange
+        //     $title = "Harry Potter";
+        //     $id = 1;
+        //     $test_book = new Book($title, $id);
+        //     $test_book->save();
+        //
+        //     $due_date = '2015-10-10';
+        //     $book_id = 1;
+        //     $id = 1;
+        //     $test_copy = new Copy($due_date, $book_id, $id);
+        //     $test_copy->save();
+        //
+        //     $due_date2 = '2015-11-11';
+        //     $book_id2 = 2;
+        //     $id2 = 2;
+        //     $test_copy2 = new Copy($due_date2, $book_id2, $id2);
+        //     $test_copy2->save();
+        //
+        //     //Act
+        //     $test_book->addCopy($test_copy);
+        //     $test_book->addCopy($test_copy2);
+        //
+        //     $result = $test_book->getCopies();
+        //
+        //     //Assert
+        //     $this->assertEquals([$test_copy, $test_copy2], $result);
+        // }
     }
 
 ?>

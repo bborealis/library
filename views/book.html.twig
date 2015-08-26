@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>{{ book.getTitle }}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ book.getTitle }}</h1>
+            {% if author is not empty %}
+                {% for name in author %}
+                    <h5>Authors: {{ name.getName }}</h5>
+                {% endfor %}
+            {% endif %}
+            {% if copies is not empty %}
+                <h3>Here are the library's copies:</h3>
+                <ul>
+                    {% for copy in copies %}
+                        <li>ID: {{ copy.getId }}<br>
+                        {{ copy.checkDate }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h3>There are no copies available.</h3>
+            {% endif %}
+
+
+            <form action="/add_copy" method="post">
+                <input type="hidden" name="book_id" value="{{ book.getId }}">
+                <button type="submit">Add a copy</button>
+            </form>
+
+
+            <form action="/checkout_copy/{{ book.getId }}" method="post">
+                <input name="_method" type="hidden" value="patch">
+                <input type="hidden" name="course_id" value="{{ book.getId }}">
+                <label for="copy_id">Select a copy</label>
+                <select name="copy_id" type="text">
+                    {% for copy in copies %}
+                        <option value="{{ copy.getId }}">{{ copy.getId }}</option>
+
+                    {% endfor %}
+                </select>
+                <label for="due_date">Enter new Due Date:</label>
+                <input name="due_date" type="date">
+
+                <button type="submit">Checkout This Copy</button>
+            </form>
+
+            {#<form action="/courses/{{ course.getId }}/edit">
+                <button type="submit">Edit Course</button>
+            </form>#}
+
+            <form action="/librarian">
+                <button type="submit">Back</button>
+            </form>
+        </div>
+
+    </body>
+</html>

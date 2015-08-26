@@ -99,5 +99,27 @@
             }
             return $patrons_array;
         }
+
+        static function findCopies($search_book_id)
+        {
+            $found_copies = array();
+            $copies = Copy::getAll();
+            foreach($copies as $copy) {
+                $book_id = $copy->getBookId();
+                if ($book_id == $search_book_id) {
+                    array_push($found_copies, $copy);
+                }
+            }
+            return $found_copies;
+        }
+
+        function checkDate() {
+            if($this->due_date == '0000-00-00') {
+                return "Copy Available";
+            }
+            else {
+                return "Due Date: " . $this->due_date;
+            }
+        }
     }
 ?>

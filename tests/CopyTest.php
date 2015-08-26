@@ -149,5 +149,33 @@
             //Assert
             $this->assertEquals([$test_patron, $test_patron2], $result);
         }
+
+        function testFindCopies()
+        {
+            //Arrange
+            $due_date = '2015-10-10';
+            $book_id = 1;
+            $id = 1;
+            $test_copy = new Copy($due_date, $book_id, $id);
+            $test_copy->save();
+
+            $due_date2 = '2015-11-11';
+            $book_id2 = 1;
+            $id2 = 2;
+            $test_copy2 = new Copy($due_date2, $book_id2, $id2);
+            $test_copy2->save();
+
+            $title = "Harry Potter";
+            $id = 1;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            //Act
+            $result = Copy::findCopies($book_id);
+            //var_dump($result);
+
+            //Assert
+            $this->assertEquals([$test_copy,$test_copy2], $result);
+        }
     }
 ?>
