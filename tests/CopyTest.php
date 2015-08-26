@@ -18,6 +18,7 @@
         protected function tearDown() {
             Copy::deleteAll();
             Book::deleteAll();
+            Patron::deleteAll();
         }
 
         function testSave() {
@@ -97,6 +98,56 @@
 
             //Assert
             $this->assertEquals($test_copy2, $result);
+        }
+
+        function testAddPatron()
+        {
+            //Arrange
+            $due_date = "2015-10-10";
+            $book_id = 1;
+            $id = 1;
+            $test_copy = new Copy($due_date, $book_id, $id);
+            $test_copy->save();
+
+            $name = "Jim Bob";
+            $id = 1;
+            $test_patron = new Patron($name, $id);
+            $test_patron->save();
+
+            //Act
+            $test_copy->addPatron($test_patron);
+
+            //Assert
+            $this->assertEquals($test_copy->getPatrons(),[$test_patron]);
+        }
+
+        function testGetPatrons() {
+
+            //Arrange
+            $due_date = "2015-10-10";
+            $book_id = 1;
+            $id = 1;
+            $test_copy = new Copy($due_date, $book_id, $id);
+            $test_copy->save();
+
+            $name = "Jim Bob";
+            $id = 1;
+            $test_patron = new Patron($name, $id);
+            $test_patron->save();
+
+            $name2 = "Sally Sue";
+            $id2 = 2;
+            $test_patron2 = new Patron($name, $id);
+            $test_patron2->save();
+
+            //Act
+            $test_copy->addPatron($test_patron);
+            $test_copy->addPatron($test_patron2);
+
+            $result = $test_copy->getPatrons();
+
+            //Assert
+            $this->assertEquals([$test_patron, $test_patron2], $result);
         }
     }
 ?>

@@ -75,8 +75,29 @@
 
         function delete() {
             $GLOBALS['DB']->exec("DELETE FROM copies WHERE id = {$this->getId()};");
-
         }
 
+        function addPatron($patron)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id) VALUES ({$patron->getId()}, {$this->getId()});");
+        }
+
+        function getPatrons()
+        {
+            $query = $GLOBALS['DB']->query("SELECT patrons.* FROM copies
+                JOIN checkouts ON (copies.id = checkouts.copy_id)
+                JOIN patrons ON (checkouts.patron_id = patrons.id)
+                WHERE copies.id = {$this->getId()};");
+            $patrons = $query->fetchAll(PDO::FETCH_ASSOC);
+            $patrons_array = array();
+
+            foreach($patrons as $patron) {
+                $name = $patron['name'];
+                $id = $patron['id'];
+                $new_patron = new Patron($name, $id);
+                array_push($patrons_array, $new_patron);
+            }
+            return $patrons_array;
+        }
     }
 ?>
