@@ -14,9 +14,9 @@ Books can be checked out to patrons with a set due date. Please see [library_dat
 * Index page.
 * Librarian route and template with list of books.
 * Book route with add copy and checkout copy functions.
+* Add delete and update for book
 
 ## To Do:
-* Add delete and update for book
 * Add add author to book.html.twig
 * Add librarian search function
 * Allow patrons to checkout books

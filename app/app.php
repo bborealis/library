@@ -86,10 +86,22 @@
         $book->update($title);
         $author = $book->getAuthors();
         $copies = Copy::findCopies($id);
-        return $app['twig']->render('book.html.twig', array('book' => $book,  'author'=>$author, 'copies'=> $copies));
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'author'=>$author, 'copies'=> $copies));
     });
 
-    //patron
+    $app->post("/add_authors", function() use ($app) {
+        $book = Book::find($_POST['book_id']);
+        $author = Author::find($_POST['author_id']);
+        $book->addAuthor($author);
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'authors'=>$book->getAuthors(), 'all_authors'=> Author::getAll()));
+});
+
+    //authors
+    $app->get("/authors", function() use ($app) {
+        return $app['twig']->render('authors.html.twig', array('authors'=>Author::getAll()));
+    });
+
+    //patrons
 
     return $app;
 ?>
