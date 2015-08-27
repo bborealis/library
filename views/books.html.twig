@@ -18,7 +18,7 @@
             {% if books is not empty %}
                 <p>Books:</p>
                 <ul>
-                    {% for book in books %}
+                    {% for book in books|sort %}
                         <li><a href="/book/{{ book.getId }}"> {{ book.getTitle }}</a></li>
                             {# {% for author in book.getAuthors %}
                                 {{ author.getName }}

@@ -6,6 +6,17 @@
     <body>
         <div class="container">
             <h1>{{ book.getTitle }}</h1>
+
+            <!-- update book name -->
+            <form action="/book/{{ book.getId }}" method="post">
+                <input name="_method" type="hidden" value="patch">
+
+                <label for="title">Rename Book:</label>
+                <input id="title" name="title" type="text">
+
+                <button type="submit">Update</button>
+            </form>
+
             {% if author is not empty %}
                 {% for name in author %}
                     <h5>Authors: {{ name.getName }}</h5>
@@ -29,15 +40,11 @@
                 <button type="submit">Add a copy</button>
             </form>
 
-            <!-- update book name -->
-            <form action="/book/{{ book.getId }}" method="post">
-                <input name="_method" type="hidden" value="patch">
+            <form action="/books/{{ book.getId }}" method="post">
+            <input name="_method" type="hidden" value="delete">
 
-                <label for="title">Rename Book:</label>
-                <input id="title" name="title" type="text">
-
-                <button type="submit">Update</button>
-            </form>
+            <button type="submit" class="btn-danger">Delete</button>
+        </form>
 
             <form action="/checkout_copy/{{ book.getId }}" method="post">
                 <input name="_method" type="hidden" value="patch">
