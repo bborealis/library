@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Library</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <h1>All Patrons</h1>
+
+            {% if patrons is not empty %}
+                <p>Here are all the patrons:</p>
+                <ul>
+                    {% for patron in patrons %}
+                        <li><a href="/patron/{{ patron.getId }}">{{ patron.getName }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h2><small>There is no patrons yet. Add one!</small></h2>
+            {% endif %}
+
+            <form action ='/patrons' method='post'>
+                <label for 'name'>Name:</label>
+                <input id='name' name='name' type='text'>
+                <button type='submit'>Add patron</button>
+            </form>
+
+            <form action ='/delete_patrons' method='post'>
+                <button type='submit'class="btn-danger">Clear</button>
+            </form>
+
+            <hr noshade size=4 width=100% align=left>
+
+            <h2>Search Patron</h2>
+            <form action="/search_patrons">
+                <input type="text" name="search" id="search" required>
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+
+            <hr noshade size=4 width=100% align=left>
+
+            <form action="/">
+                <button type="submit" class="btn-default">Return Home</button>
+            </form>
+        </div>
+    </body>
+</html>

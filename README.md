@@ -35,7 +35,7 @@ PHP, PHPUnit, Silex, Twig, and MySQL
 
 ### Legal
 
-Copyright (c) 2015 Brian Borealis, Don Schemmel, Logan Wu & Steve Smietana
+Copyright (c) 2015 **Brian Borealis, Don Schemmel, Logan Wu & Steve Smietana**
 
 This software is licensed under the MIT license.
 

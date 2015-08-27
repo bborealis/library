@@ -135,13 +135,17 @@
     });
 
     //patrons
-    $app->get("/patron", function() use ($app) {
-        return $app['twig']->render('patron.html.twig', array('books'=>Book::getAll()));
+    $app->get("/patrons", function() use ($app) {
+        return $app['twig']->render('patrons.html.twig', array('patrons'=>Patron::getAll()));
     });
 
-
-
-
+    $app->post("/add_patrons", function() use ($app) {
+        $copy = Copy::find($_POST['copy_id']);
+        $patron = Patron::find($_POST['patron_id']);
+        $book->addAuthor($author);
+        $copies = Copy::findCopies($_POST['book_id']);
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'authors'=>$book->getAuthors(), 'all_authors'=> Author::getAll(), 'copies'=> $copies));
+    });
 
     return $app;
 ?>
