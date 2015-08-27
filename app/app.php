@@ -78,9 +78,8 @@
         return $app['twig']->render('book.html.twig', array('book'=>$book, 'authors'=>$authors, 'copies'=> $copies));
     });
 
-    $app->delete("/books/{id}", function ($id) use ($app) {
-        $book = Book::find($id);
-        $book->delete();
+    $app->post("/delete_books", function() use ($app) {
+        Book::deleteAll();
         return $app['twig']->render('books.html.twig', array('books'=>Book::getAll()));
     });
 
@@ -97,7 +96,8 @@
         $book = Book::find($_POST['book_id']);
         $author = Author::find($_POST['author_id']);
         $book->addAuthor($author);
-        return $app['twig']->render('book.html.twig', array('book' => $book, 'authors'=>$book->getAuthors(), 'all_authors'=> Author::getAll()));
+        $copies = Copy::findCopies($_POST['book_id']);
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'authors'=>$book->getAuthors(), 'all_authors'=> Author::getAll(), 'copies'=> $copies));
     });
 
 
@@ -117,6 +117,8 @@
     $app->get("/patron", function() use ($app) {
         return $app['twig']->render('patron.html.twig', array('books'=>Book::getAll()));
     });
+
+
 
 
 

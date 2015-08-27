@@ -38,6 +38,8 @@
                 <button type="submit">Select</button>
             </form>
 
+            <hr noshade size=4 width=100% align=left>
+
             {% if copies is not empty %}
                 <h3>Here are the library's copies:</h3>
                 <ul>
@@ -55,6 +57,9 @@
                 <button type="submit">Add a copy</button>
             </form>
 
+            <hr noshade size=4 width=100% align=left>
+
+            <h3>Checkout</h3>
             <form action="/checkout_copy/{{ book.getId }}" method="post">
                 <input name="_method" type="hidden" value="patch">
                 <input type="hidden" name="course_id" value="{{ book.getId }}">
@@ -71,13 +76,15 @@
                 <button type="submit">Checkout This Copy</button>
             </form>
 
+            <hr noshade size=4 width=100% align=left>
+
             <form action="/books/{{ book.getId }}" method="post">
                 <input name="_method" type="hidden" value="delete">
-                <button type="submit" class="btn-danger">Delete</button>
+                <button type="submit" class="btn-danger">Delete Book</button>
             </form>
 
             <form action="/librarian">
-                <button type="submit">Back</button>
+                <button type="submit">Back to Catalogue</button>
             </form>
         </div>
 
