@@ -1,8 +1,8 @@
-# Library app with MySQL
+# Library App with MySQL
 
 ##### App that allows librarians and patrons to view and checkout books. (8/26/15)
 
-#### Brian Borealis & Steve Smietana
+#### Brian Borealis, Don Schemmel, Logan Wu & Steve Smietana
 
 ## Description
 
@@ -16,12 +16,12 @@ Librarian route and template with list of books.
 Book route with add copy and checkout copy functions.
 
 ## To Do:
-Add delete and update for book
-Add add author to book.html.twig
-Add librarian search function
-Allow patrons to checkout books
-Setup patron checkout history
-Librarian list of overdue books
+* Add delete and update for book
+* Add add author to book.html.twig
+* Add librarian search function
+* Allow patrons to checkout books
+* Setup patron checkout history
+* Librarian list of overdue books
 
 ## Setup
 * Clone the project using the link provided on Github.
@@ -36,7 +36,7 @@ PHP, PHPUnit, Silex, Twig, and MySQL
 
 ### Legal
 
-Copyright (c) 2015 Brian Borealis $  Steve Smietana
+Copyright (c) 2015 Brian Borealis, Don Schemmel, Logan Wu & Steve Smietana
 
 This software is licensed under the MIT license.
 
