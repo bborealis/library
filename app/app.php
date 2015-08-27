@@ -112,6 +112,18 @@
         return $app['twig']->render('author.html.twig', array('book'=>$book, 'author'=>$author));
     });
 
+    $app->post("/delete_authors", function() use ($app) {
+        Author::deleteAll();
+        return $app['twig']->render('authors.html.twig', array('authors'=>Author::getAll()));
+    });
+
+    $app->post("/authors", function() use ($app) {
+        $author = new Author($_POST['name']);
+        $author->save();
+        // $book->addAuthor($author);
+
+        return $app['twig']->render('authors.html.twig', array('authors'=>Author::getAll()));
+    });
 
     //patrons
     $app->get("/patron", function() use ($app) {

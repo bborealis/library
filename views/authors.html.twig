@@ -15,16 +15,18 @@
                         <li><a href="/authors/{{ author.getId }}">{{ author.getName }}</a></li>
                     {% endfor %}
                 </ul>
+            {% else %}
+                <h2><small>There is no authors yet. Add one!</small></h2>
             {% endif %}
 
             <form action ='/authors' method='post'>
-                <label for 'name'>Author name</label>
-                <input id='name' name='name' type='text'><br>
+                <label for 'name'>Name:</label>
+                <input id='name' name='name' type='text'>
                 <button type='submit'>Add author</button>
             </form>
 
             <form action ='/delete_authors' method='post'>
-                <button type='submit'>Clear</button>
+                <button type='submit'class="btn-danger">Clear</button>
             </form>
 
             <form action="/">
