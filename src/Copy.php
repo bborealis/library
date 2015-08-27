@@ -113,7 +113,7 @@
             return $found_copies;
         }
 
-        function checkDate() {
+        function checkAvailable() {
             if($this->due_date == '0000-00-00') {
                 return "Copy Available";
             }

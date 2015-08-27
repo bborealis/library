@@ -11,7 +11,7 @@
             {% if authors is not empty %}
                 <p>Here are all the authors:</p>
                 <ul>
-                    {% for author in authors %}
+                    {% for author in authors|sort %}
                         <li><a href="/author/{{ author.getId }}">{{ author.getName }}</a></li>
                     {% endfor %}
                 </ul>
@@ -21,7 +21,7 @@
 
             <form action ='/authors' method='post'>
                 <label for 'name'>Name:</label>
-                <input id='name' name='name' type='text'>
+                <input id='name' name='name' type='text' required>
                 <button type='submit'>Add author</button>
             </form>
 
@@ -33,7 +33,7 @@
 
             <h2>Search Author</h2>
             <form action="/search_authors">
-                <input type="text" name="search" id="search" required>
+                <input type="text" name="search" id="search" placeholder="Author Name" required>
                 <button type="submit" class="btn-primary">Search</button>
             </form>
 

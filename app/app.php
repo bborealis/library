@@ -139,13 +139,20 @@
         return $app['twig']->render('patrons.html.twig', array('patrons'=>Patron::getAll()));
     });
 
-    $app->post("/add_patrons", function() use ($app) {
-        $copy = Copy::find($_POST['copy_id']);
-        $patron = Patron::find($_POST['patron_id']);
-        $book->addAuthor($author);
-        $copies = Copy::findCopies($_POST['book_id']);
-        return $app['twig']->render('book.html.twig', array('book' => $book, 'authors'=>$book->getAuthors(), 'all_authors'=> Author::getAll(), 'copies'=> $copies));
+    $app->post("/patrons", function() use ($app) {
+        $patron = new Patron($_POST['name']);
+        $patron->save();
+        return $app['twig']->render('patrons.html.twig', array('patrons'=>Patron::getAll()));
     });
+
+    $app->get("/patron/{id}", function($id) use ($app) {
+        $patron = Patron::find($id);
+        $copies = $patron->getCopies();
+        $book_titles = $copies->getCheckoutTitles();
+        return $app['twig']->render('patron.html.twig', array('patron'=>$patron, 'copies'=>$copies, 'book_titles'=>$book_titles));
+    });
+
+    //copies
 
     return $app;
 ?>

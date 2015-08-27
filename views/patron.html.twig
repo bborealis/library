@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>{{ patron.getName }}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ patron.getName }}</h1>
+
+            <!-- update patron name -->
+            <form action="/patron/{{ patron.getId }}" method="post">
+                <input name="_method" type="hidden" value="patch">
+
+                <label for="name">Rename:</label>
+                <input id="name" name="name" type="text">
+
+                <button type="submit">Update</button>
+            </form>
+
+            <h2>Copies:</h2>
+            {% if copies is not empty %}
+                {% for copy in copies %}
+                    <h5><ul>Book: {{ copy.getCheckoutTitles }}
+                        <li>Due Date: {{ copy.getDueDate }}</li>
+                    </ul></h5>
+                {% endfor %}
+            {% endif %}
+
+            <form action="/add_copies" method="post">
+                <input type="hidden" name="copy_id" value="{{ patron.getId }}">
+
+                <label for="copy_id">Add a copy:</label>
+                <select id='copy_id' name='copy_id' type='text'>
+                    {% for copy in all_copies %}
+                      <option value="{{ copy.getId }}"> {{ copy.getCheckoutTitles }} </option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Select</button>
+            </form>
+
+            <form action="/authors/{{ patron.getId }}" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit" class="btn-danger">Delete</button>
+            </form>
+
+            <form action="/authors">
+                <button type="submit">Back</button>
+            </form>
+        </div>
+
+    </body>
+</html>
