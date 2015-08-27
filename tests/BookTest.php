@@ -8,7 +8,7 @@
     require_once "src/Author.php";
 
 
-    $server = 'mysql:host=localhost;dbname=library_tests';
+    $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Library</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <h1>All Authors</h1>
+
+            {% if authors is not empty %}
+                <p>Here are all the authors:</p>
+                <ul>
+                    {% for author in authors|sort %}
+                        <li><a href="/author/{{ author.getId }}">{{ author.getName }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h2><small>There is no authors yet. Add one!</small></h2>
+            {% endif %}
+
+            <form action ='/authors' method='post'>
+                <label for 'name'>Name:</label>
+                <input id='name' name='name' type='text' required>
+                <button type='submit'>Add author</button>
+            </form>
+
+            <form action ='/delete_authors' method='post'>
+                <button type='submit'class="btn-danger">Clear</button>
+            </form>
+
+            <hr noshade size=4 width=100% align=left>
+
+            <h2>Search Author</h2>
+            <form action="/search_authors">
+                <input type="text" name="search" id="search" placeholder="Author Name" required>
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+
+            <hr noshade size=4 width=100% align=left>
+
+            <form action="/">
+                <button type="submit" class="btn-default">Return Home</button>
+            </form>
+        </div>
+    </body>
+</html>

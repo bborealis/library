@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>{{ author.getName }}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ author.getName }}</h1>
+
+            <!-- update author name -->
+            <form action="/author/{{ author.getId }}" method="post">
+                <input name="_method" type="hidden" value="patch">
+
+                <label for="name">Rename:</label>
+                <input id="name" name="name" type="text">
+
+                <button type="submit">Update</button>
+            </form>
+
+            <h2>Books:</h2>
+            {% if books is not empty %}
+                {% for book in books %}
+                    <h5><ul>
+                        <li>{{ book.getTitle }}</li>
+                    </ul></h5>
+                {% endfor %}
+            {% endif %}
+
+            <form action="/add_books" method="post">
+                <input type="hidden" name="book_id" value="{{ author.getId }}">
+
+                <label for="book_id">Add a book:</label>
+                <select id='book_id' name='book_id' type='text'>
+                    {% for book in all_books %}
+                      <option value="{{ book.getId }}"> {{ book.getTitle }} </option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Select</button>
+            </form>
+
+            <form action="/authors/{{ author.getId }}" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit" class="btn-danger">Delete</button>
+            </form>
+
+            <form action="/authors">
+                <button type="submit">Back</button>
+            </form>
+        </div>
+
+    </body>
+</html>

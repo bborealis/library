@@ -8,25 +8,47 @@
         <div class="container">
             <h1>Library Catalog</h1>
 
-
             <form action="/books" method="post">
-                <input id="title" name="title" placeholder="Book Title">
-                <input id="name" name="name" placeholder="Book Author"> 
+                <input id="title" name="title" placeholder="Book Title" required>
+                <input id="name" name="name" placeholder="Book Author" required>
                 <button type="submit">Add Book</button>
             </form>
 
             {% if books is not empty %}
-                <p>Books:</p>
+                <h2><small>Books:</small></h2>
                 <ul>
-                    {% for book in books %}
+                    {% for book in books|sort %}
                         <li><a href="/book/{{ book.getId }}"> {{ book.getTitle }}</a></li>
-                            {# {% for author in book.getAuthors %}
-                                {{ author.getName }}
-                            {% endfor %} #}
+                            {% for author in book.getAuthors %}
+                                <ul>
+                                    <li><a href="/author/{{ author.getId }}">{{ author.getName }}</a></li>
+                                </ul>
+                            {% endfor %}
                     {% endfor %}
                 </ul>
             {% endif %}
 
+            <form action ='/delete_books' method='post'>
+                <button type='submit' class="btn-danger">Clear</button>
+            </form>
+
+            <hr noshade size=4 width=100% align=left>
+
+            <h2>Search Books</h2>
+            <form action="/search_books">
+                <input type="text" name="search" id="search" placeholder="Book Title" required>
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+
+            <hr noshade size=4 width=100% align=left>
+
+            <form action="/authors">
+                <button type="submit" class="btn-info">List of Authors</button>
+            </form>
+
+            <form action="/">
+                <button type="submit" class="btn-default">Return Home</button>
+            </form>
         </div>
     </body>
 </html>

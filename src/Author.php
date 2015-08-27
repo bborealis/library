@@ -90,6 +90,19 @@
             }
             return $books_array;
         }
+
+        static function search($search_name)
+        {
+            $found_authors = array();
+            $authors = Author::getAll();
+            foreach($authors as $author) {
+                $author_name = $author->getName();
+                if($author_name == $search_name) {
+                    array_push($found_authors, $author);
+                }
+            }
+            return $found_authors;
+        }
     }
 
  ?>

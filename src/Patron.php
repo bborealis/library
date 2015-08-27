@@ -75,7 +75,7 @@
 
         function getCopies()
         {
-            $query = $GLOBALS['DB']->query("SELECT copies.* FROM patrons
+            $query = $GLOBALS['DB']->query("SELECT copies * FROM patrons
                 JOIN checkouts ON (patrons.id = checkouts.patron_id)
                 JOIN copies ON (checkouts.copy_id = copies.id)
                 WHERE patrons.id = {$this->getId()};");
@@ -90,6 +90,17 @@
                 array_push($copies_array, $new_copy);
             }
             return $copies_array;
+        }
+
+        function getCheckoutTitles()
+        {
+            $checkouts = array();
+            foreach($copies as $copy) {
+                $book_id = $copy->getBookId();
+                $book->getTitle($book_id);
+                array_push($checkouts, $book);
+            }
+            return $checkout_titles;
         }
     }
 
