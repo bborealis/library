@@ -8,7 +8,6 @@
         <div class="container">
             <h1>Library Catalog</h1>
 
-
             <form action="/books" method="post">
                 <input id="title" name="title" placeholder="Book Title" required>
                 <input id="name" name="name" placeholder="Book Author" required>
@@ -29,16 +28,26 @@
                 </ul>
             {% endif %}
 
-            <form action="/authors">
-                <button type="submit">Authors</button>
-            </form>
-
             <form action ='/delete_books' method='post'>
                 <button type='submit' class="btn-danger">Clear</button>
             </form>
 
+            <hr noshade size=4 width=100% align=left>
+
+            <h2>Search Books</h2>
+            <form action="/search_books">
+                <input type="text" name="search" id="search" required>
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+
+            <hr noshade size=4 width=100% align=left>
+
+            <form action="/authors">
+                <button type="submit" class="btn-info">Authors</button>
+            </form>
+
             <form action="/">
-                <button type="submit">Home</button>
+                <button type="submit">Return Home</button>
             </form>
         </div>
     </body>

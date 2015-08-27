@@ -27,14 +27,12 @@
         return $app['twig']->render('index.html.twig');
     });
 
-
     //books
     $app->get("/librarian", function() use ($app) {
         return $app['twig']->render('books.html.twig', array('books'=>Book::getAll()));
     });
 
     $app->post("/books", function() use ($app) {
-        // $name = $_POST['name'];
         $author = new Author($_POST['name']);
         $author->save();
         $title = $_POST['title'];
@@ -100,6 +98,12 @@
         return $app['twig']->render('book.html.twig', array('book' => $book, 'authors'=>$book->getAuthors(), 'all_authors'=> Author::getAll(), 'copies'=> $copies));
     });
 
+        //book search result page
+    $app->get("/search_books", function() use ($app) {
+        $search = Book::search($_GET['search']);
+
+        return $app['twig']->render('search_books.html.twig', array('search' => $search, 'search_book'=>$_GET['search']));
+    });
 
     //authors
     $app->get("/authors", function() use ($app) {

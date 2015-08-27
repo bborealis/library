@@ -12,7 +12,7 @@
                 <p>Here are all the authors:</p>
                 <ul>
                     {% for author in authors %}
-                        <li><a href="/authors/{{ author.getId }}">{{ author.getName }}</a></li>
+                        <li><a href="/author/{{ author.getId }}">{{ author.getName }}</a></li>
                     {% endfor %}
                 </ul>
             {% else %}
