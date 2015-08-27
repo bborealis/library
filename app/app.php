@@ -87,7 +87,7 @@
         $book->update($title);
         $authors = $book->getAuthors();
         $copies = Copy::findCopies($id);
-        return $app['twig']->render('book.html.twig', array('book'=>$book, 'authors'=>$authors, 'copies'=> $copies));
+        return $app['twig']->render('book.html.twig', array('book'=>$book, 'authors'=>$authors, 'all_authors'=> Author::getAll(), 'copies'=> $copies));
     });
 
     $app->post("/add_authors", function() use ($app) {
