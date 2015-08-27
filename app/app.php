@@ -27,15 +27,12 @@
         return $app['twig']->render('index.html.twig');
     });
 
+
+    //books
     $app->get("/librarian", function() use ($app) {
         return $app['twig']->render('books.html.twig', array('books'=>Book::getAll()));
     });
 
-    $app->get("/patron", function() use ($app) {
-        return $app['twig']->render('patron.html.twig', array('books'=>Book::getAll()));
-    });
-
-    //books
     $app->post("/books", function() use ($app) {
         // $name = $_POST['name'];
         $author = new Author($_POST['name']);
@@ -49,44 +46,51 @@
 
     $app->get("/book/{id}", function($id) use ($app) {
         $book = Book::find($id);
-        $author = $book->getAuthors();
+        $authors = $book->getAuthors();
         $copies = Copy::findCopies($id);
-        return $app['twig']->render('book.html.twig', array('book'=>$book, 'author'=>$author, 'copies'=> $copies));
+        return $app['twig']->render('book.html.twig', array('book'=>$book, 'authors'=>$authors, 'copies'=> $copies, 'all_authors'=>Author::getAll()));
+    });
+
+    $app->get("/author/{id}", function($id) use ($app) {
+        $author = Author::find($id);
+        $books = $author->getBooks();
+        $copies = Copy::findCopies($id);
+        return $app['twig']->render('author.html.twig', array('author'=>$author, 'books'=>$books, 'copies'=> $copies, 'all_books'=>Book::getAll()));
     });
 
     $app->post("/add_copy", function() use ($app) {
         $book_id = $_POST['book_id'];
         $book = Book::find($book_id);
-        $author = $book->getAuthors();
+        $authors = $book->getAuthors();
         $copy = new Copy('0000-00-00', $book_id);
         $copy->save();
         $copies = Copy::findCopies($book_id);
-        return $app['twig']->render('book.html.twig', array('book'=>$book, 'author'=>$author, 'copies'=> $copies));
+        return $app['twig']->render('book.html.twig', array('book'=>$book, 'authors'=>$authors, 'copies'=> $copies));
     });
 
     $app->patch("/checkout_copy/{id}", function($id) use ($app) {
         $book = Book::find($id);
-        $author = $book->getAuthors();
+        $authors = $book->getAuthors();
         $copy_id = $_POST['copy_id'];
         $copy = Copy::find($copy_id);
         $copy->update($_POST['due_date']);
         $copies = Copy::findCopies($id);
-        return $app['twig']->render('book.html.twig', array('book'=>$book, 'author'=>$author, 'copies'=> $copies));
+        return $app['twig']->render('book.html.twig', array('book'=>$book, 'authors'=>$authors, 'copies'=> $copies));
     });
 
     $app->delete("/books/{id}", function ($id) use ($app) {
         $book = Book::find($id);
         $book->delete();
-        return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
+        return $app['twig']->render('books.html.twig', array('books'=>Book::getAll()));
     });
 
     $app->patch("/book/{id}", function($id) use ($app) {
         $book = Book::find($id);
         $title = $_POST['title'];
         $book->update($title);
-        $author = $book->getAuthors();
+        $authors = $book->getAuthors();
         $copies = Copy::findCopies($id);
-        return $app['twig']->render('book.html.twig', array('book' => $book, 'author'=>$author, 'copies'=> $copies));
+        return $app['twig']->render('book.html.twig', array('book'=>$book, 'authors'=>$authors, 'copies'=> $copies));
     });
 
     $app->post("/add_authors", function() use ($app) {
@@ -94,14 +98,27 @@
         $author = Author::find($_POST['author_id']);
         $book->addAuthor($author);
         return $app['twig']->render('book.html.twig', array('book' => $book, 'authors'=>$book->getAuthors(), 'all_authors'=> Author::getAll()));
-});
+    });
+
 
     //authors
     $app->get("/authors", function() use ($app) {
         return $app['twig']->render('authors.html.twig', array('authors'=>Author::getAll()));
     });
 
+    $app->get("/author/{id}", function($id) use ($app) {
+        $author = Author::find($id);
+        $book = $author->getAuthors();
+        return $app['twig']->render('author.html.twig', array('book'=>$book, 'author'=>$author));
+    });
+
+
     //patrons
+    $app->get("/patron", function() use ($app) {
+        return $app['twig']->render('patron.html.twig', array('books'=>Book::getAll()));
+    });
+
+
 
     return $app;
 ?>

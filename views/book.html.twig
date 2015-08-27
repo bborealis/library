@@ -7,7 +7,7 @@
         <div class="container">
             <h1>{{ book.getTitle }}</h1>
 
-            <!-- update book name -->
+            <!-- update book title -->
             <form action="/book/{{ book.getId }}" method="post">
                 <input name="_method" type="hidden" value="patch">
 
@@ -17,18 +17,19 @@
                 <button type="submit">Update</button>
             </form>
 
-            Authors:
-            {% if author is not empty %}
-                {% for name in author %}
-                    <h5>{{ name.getName }}, </h5>
+            <h3><small>written by:</small></h3>
+            {% if authors is not empty %}
+                {% for author in authors %}
+                    <h5><ul>
+                        <li>{{ author.getName }}</li>
+                    </ul></h5>
                 {% endfor %}
             {% endif %}
 
             <form action="/add_authors" method="post">
                 <input type="hidden" name="book_id" value="{{ book.getId }}">
 
-                <label for="author_id">Add an Author:</label>
-                <input id="author_id" name="author_id" type="text">
+                <label for="author_id">Add an author:</label>
                 <select id='author_id' name='author_id' type='text'>
                     {% for author in all_authors %}
                       <option value="{{ author.getId }}"> {{ author.getName }} </option>
@@ -69,10 +70,6 @@
 
                 <button type="submit">Checkout This Copy</button>
             </form>
-
-            {#<form action="/courses/{{ course.getId }}/edit">
-                <button type="submit">Edit Course</button>
-            </form>#}
 
             <form action="/books/{{ book.getId }}" method="post">
                 <input name="_method" type="hidden" value="delete">
