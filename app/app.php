@@ -101,8 +101,13 @@
         //book search result page
     $app->get("/search_books", function() use ($app) {
         $search = Book::search($_GET['search']);
-
         return $app['twig']->render('search_books.html.twig', array('search' => $search, 'search_book'=>$_GET['search']));
+    });
+
+        //author search result page
+    $app->get("/search_authors", function() use ($app) {
+        $search = Author::search($_GET['search']);
+        return $app['twig']->render('search_authors.html.twig', array('search' => $search, 'search_author'=>$_GET['search']));
     });
 
     //authors

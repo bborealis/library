@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Search Results</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Search Author Result</h1>
+
+            {% if search is not empty %}
+                <h1><small>{{ search_author }} is in our library database!</small></h1>
+                {% for author in search %}
+                <ul>
+                    <li><a href="/author/{{ author.getId }}">{{ author.getName }}</a></li>
+
+                </ul>
+                {% endfor %}
+            {% else %}
+                <h1><small>{{ search_author }} is not available in our library database!</small></h1>
+            {% endif %}
+
+            <form action="/">
+                <button type="submit">Return Home</button>
+            </form>
+        </div>
+    </body>
+</html>
