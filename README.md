@@ -7,13 +7,13 @@
 ## Description
 
 This application allows users to input books, authors, and copies of books.
-Books can be checked out to patrons with a set due date.
+Books can be checked out to patrons with a set due date. Please see [library_database_design.png](library_database_design.png) for the database design.
 
 ## Done:
-All class functions and tests.
-Index
-Librarian route and template with list of books.
-Book route with add copy and checkout copy functions.
+* All class functions and tests.
+* Index page.
+* Librarian route and template with list of books.
+* Book route with add copy and checkout copy functions.
 
 ## To Do:
 * Add delete and update for book
@@ -28,7 +28,6 @@ Book route with add copy and checkout copy functions.
 * Run composer install in Terminal from the project root folder.
 * Start the PHP server from Terminal in the /web folder.
 * Open a web browser and navigate to ```localhost:8000```.
-
 
 ## Technologies Used
 
